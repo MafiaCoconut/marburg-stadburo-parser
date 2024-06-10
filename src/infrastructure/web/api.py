@@ -1,7 +1,6 @@
 from fastapi import Depends, APIRouter
 from sqlalchemy.orm import Session
 
-from infrastructure.config.canteen_service_config import canteens_service
 
 router = APIRouter()
 
