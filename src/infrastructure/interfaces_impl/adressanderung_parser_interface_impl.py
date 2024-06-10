@@ -13,19 +13,21 @@ class AdressanderungParserInterface(BaseParserInterfaceImpl):
         super().__init__()
         self.waiting_time = 2
         self.category_id = 1
-        self.driver = get_selenium_driver()
-        print('----------')
+        self.driver = None
+        # print('----------')
         self.url_start = "https://termine-reservieren.de/termine/marburg/select2?md=1"
 
     def parse(self) -> dict:
         result = {}
         try:
+            self.driver = get_selenium_driver()
             self.driver.get(self.url_start)
             self.ablehnen_cookies()
             result = self.get_termins()
 
         except Exception as e:
-            print(e)
+            pass
+            # print(e)
 
         finally:
             self.driver.close()
@@ -46,7 +48,7 @@ class AdressanderungParserInterface(BaseParserInterfaceImpl):
             self.check_termins_exist()
             return {"error": "no-free-termins"}
         except NoSuchElementException as e:
-            print(e)
+            pass
 
         flag = False
         result = []
@@ -67,15 +69,14 @@ class AdressanderungParserInterface(BaseParserInterfaceImpl):
                 title = day.get_attribute("title")
                 day = title[title.find(' ') + 1:]
 
-            result.append(self.get_termins_per_day(day_id=day_id, day=day))
+            self.get_termins_per_day(day_id=day_id, day=day, termins=result)
             if flag:
                 break
 
         return {'termins': result}
 
 
-    def get_termins_per_day(self, day_id: int, day: str):
-        termins = []
+    def get_termins_per_day(self, day_id: int, day: str, termins: list):
         row = len(self.driver.find_elements(By.XPATH, f'//*[@id="{day_id}"]/table/tbody/*'))
         for i in range(1, row + 1):
             column = len(self.driver.find_elements(By.XPATH, f'//*[@id="{day_id}"]/table/tbody/tr[{i}]/*'))
@@ -91,16 +92,15 @@ class AdressanderungParserInterface(BaseParserInterfaceImpl):
                     termins.append(self.refactor_item_to_termin_obj(item=item))
                     # save_termin(type_of_termins, day, termin_time, weekday)
                 except Exception as e:
-                    print(e)
-        return termins
+                    pass
 
     def check_termins_exist(self):
         self.driver.find_element(By.XPATH, '//*[@id="inhalt"]/div[2]/h2')
 
 
-if __name__ == '__main__':
-    obj = AdressanderungParserInterface()
-    obj.parse()
+# if __name__ == '__main__':
+#     obj = AdressanderungParserInterface()
+#     obj.parse()
     # obj.parse()
 
 

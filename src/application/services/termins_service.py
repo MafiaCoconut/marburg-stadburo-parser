@@ -47,5 +47,10 @@ class TerminsService:
 
         if parse_use_case is not None:
             result = parse_use_case.execute()
+            # print(result)
             if result['termins']:
                 self.save_termins_use_case.save_many(termins=result['termins'], termin_category_id=termin_category_id)
+
+            return result
+
+

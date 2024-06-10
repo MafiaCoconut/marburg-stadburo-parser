@@ -1,9 +1,13 @@
 from fastapi import Depends, APIRouter
 from sqlalchemy.orm import Session
 
+from infrastructure.config.services_config import termins_service
 
 router = APIRouter()
 
+@router.get("/parser/{category_of_termin_id}")
+def start_parser(category_of_termin_id: int):
+    return termins_service.parse_termins_category(termin_category_id=category_of_termin_id)
 
 # @router.get("/canteens/{canteen_id}")
 # def read_canteens(canteen_id: int):
