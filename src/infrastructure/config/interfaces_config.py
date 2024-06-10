@@ -1,6 +1,14 @@
+from infrastructure.interfaces_impl.adressanderung_parser_interface_impl import AdressanderungParserInterface
+from infrastructure.interfaces_impl.eat_abholung_parser_interface_impl import eATAbholungParserInterface
+from infrastructure.interfaces_impl.others_parser_interface_impl import OthersParserInterface
+from infrastructure.interfaces_impl.registration_office_parser_interface_impl import RegistrationOfficeParserInterface
 from infrastructure.interfaces_impl.termins_parser_interface_impl import TerminsParserInterfaceImpl
 from infrastructure.repositories_impl.termins_repository_impl import TerminsRepositoryImpl
 
-termins_parser_interface = TerminsParserInterfaceImpl()
+# termins_parser_interface = TerminsParserInterfaceImpl()
 
 
+adressanderung_parser_interface = AdressanderungParserInterface()
+eat_abholung_parser_interface = eATAbholungParserInterface()
+registration_office_parser_interface = RegistrationOfficeParserInterface()
+others_parser_interface = OthersParserInterface()

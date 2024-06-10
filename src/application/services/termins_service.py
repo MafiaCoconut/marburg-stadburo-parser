@@ -18,4 +18,5 @@ class TerminsService:
         self.parse_termins_use_case = ParseTerminsUseCase(self.termins_parser_interface)
 
     def parse_termin_category(self, termin_category_id: int):
-        pass
+
+        self.termins_parser_interface.parse()
