@@ -1,0 +1,6 @@
+from infrastructure.interfaces_impl.termins_parser_interface_impl import TerminsParserInterfaceImpl
+from infrastructure.repositories_impl.termins_repository_impl import TerminsRepositoryImpl
+
+termins_parser_interface = TerminsParserInterfaceImpl()
+
+

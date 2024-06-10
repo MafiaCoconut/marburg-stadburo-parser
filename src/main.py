@@ -4,6 +4,8 @@ from infrastructure.config.scheduler_services_config import start_scheduler_serv
 from infrastructure.config import logs_config
 from infrastructure.db.base import Base, sync_engine
 from infrastructure.web.api import router
+from infrastructure.db.models.categories_of_termins_orm import CategoriesOfTermins
+
 from infrastructure.db.models.termins_orm import TerminsOrm
 app = FastAPI()
 app.include_router(router)
@@ -17,7 +19,7 @@ app.include_router(router)
 
 
 if __name__ == '__main__':
-    # Base.metadata.create_all(sync_engine)
+    Base.metadata.create_all(sync_engine)
 
     pass
     # obj = GiessenTHMParserInterfaceImpl()

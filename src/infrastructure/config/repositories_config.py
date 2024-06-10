@@ -1,0 +1,3 @@
+from infrastructure.repositories_impl.termins_repository_impl import TerminsRepositoryImpl
+
+termins_repository = TerminsRepositoryImpl()
