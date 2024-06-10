@@ -6,8 +6,7 @@ class SaveTerminsUseCase:
         self.termins_repository = termins_repository
 
     def save_many(self, termins: list, termin_category_id: int) -> None:
-        self.termins_repository.save_many(termins=termins, termin_category_id=termin_category_id)
-        # self.termins_repository.save_all(termins)
-        pass
+        self.termins_repository.save_many(termins=termins, category_id=termin_category_id)
+
 
 
