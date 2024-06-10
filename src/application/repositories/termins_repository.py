@@ -11,17 +11,17 @@ class TerminsRepository(ABC):
 
     @staticmethod
     @abstractmethod
-    def get_by_type(type_of_termin: str) -> list[Termin]:
+    def get_by_type(termin_category_id: int) -> list[Termin]:
         pass
 
     @staticmethod
     @abstractmethod
-    def save(termin: Termin) -> None:
+    def save(termin: Termin, termin_category_id: int) -> None:
         pass
 
     @staticmethod
     @abstractmethod
-    def save_many(termins: list[Termin]) -> None:
+    def save_many(termins: list[Termin], termin_category_id: int) -> None:
         pass
 
     @staticmethod
@@ -31,7 +31,7 @@ class TerminsRepository(ABC):
 
     @staticmethod
     @abstractmethod
-    def delete_by_type(type_of_termin: str) -> None:
+    def delete_by_category(termin_category_id: int) -> None:
         pass
 
     @staticmethod

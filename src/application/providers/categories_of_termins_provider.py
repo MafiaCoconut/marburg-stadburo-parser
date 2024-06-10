@@ -10,7 +10,7 @@ class CategoriesOfTerminsProvider(ABC):
         pass
 
     @abstractmethod
-    def get_refistration_office_parser_interface(self):
+    def get_registration_office_parser_interface(self):
         pass
 
     @abstractmethod

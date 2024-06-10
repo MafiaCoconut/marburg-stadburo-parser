@@ -24,7 +24,7 @@ class TerminsRepositoryImpl(TerminsRepository):
         pass
 
     @staticmethod
-    def delete_by_type(type_of_termin: str) -> None:
+    def delete_by_category(type_of_termin: str) -> None:
         pass
 
     @staticmethod
