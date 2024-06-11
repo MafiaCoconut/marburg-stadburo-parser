@@ -5,34 +5,24 @@ from infrastructure.config.services_config import termins_service
 
 router = APIRouter()
 
+
 @router.get("/parser/{category_of_termin_id}")
-def start_parser(category_of_termin_id: int):
-    return termins_service.parse_termins_category(termin_category_id=category_of_termin_id)
-
-# @router.get("/canteens/{canteen_id}")
-# def read_canteens(canteen_id: int):
-#     print("/canteens/{canteen_id}")
-#     return {"text": canteens_service.get_canteen(canteen_id=canteen_id)}
-#
-#
-# @router.get("/canteens_menu/{canteen_id}")
-# def read_canteens_menu(canteen_id: int, locale: str):
-#     print("read_canteens_menu")
-#     return canteens_service.get_menu(canteen_id=canteen_id, locale=locale)
-#
-#
-# @router.get('/parser/all')
-# def start_all_canteens_parser():
-#     print("start_all_canteens_parser")
-#     return canteens_service.parse_all_canteens()
-#
-#
-# @router.get('/parser/{canteen_id}')
-# def start_canteens_parser(canteen_id: int):
-#     print("start_canteens_parser")
-#     return canteens_service.parse_canteen(canteen_id=int(canteen_id))
+def start_parser(category_of_termin_id: int, get_result: bool):
+    if get_result:
+        return termins_service.parse_termins_category(termin_category_id=category_of_termin_id)
+    else:
+        termins_service.parse_termins_category(termin_category_id=category_of_termin_id)
 
 
-# @router.get('/start')
-# def start_canteens_parser():
-#     return {"Hello world"}
+@router.get("/parser/all")
+def start_parser_all(get_result: bool):
+    if get_result:
+        return termins_service.parse_all()
+    else:
+        termins_service.parse_all()
+
+@router.get("/category_of_termins/{category_of_termins}")
+def get_text_category_of_termins(category_of_termins: int, locale: str):
+    return termins_service.get_text_category_of_termins(category_of_termins=category_of_termins, locale=locale)
+
+

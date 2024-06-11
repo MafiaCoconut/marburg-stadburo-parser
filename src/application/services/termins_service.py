@@ -1,5 +1,7 @@
 from application.providers.categories_of_termins_provider import CategoriesOfTerminsProvider
+from application.repositories.category_of_termins_repository import CategoryOfTerminsRepository
 from application.repositories.termins_repository import TerminsRepository
+from application.services.translation_service import TranslationService
 from application.use_cases.get_termins_use_case import GetTerminsUseCase
 from application.use_cases.parse_termins_use_case import ParseTerminsUseCase
 from application.use_cases.save_termins_use_case import SaveTerminsUseCase
@@ -8,12 +10,20 @@ from application.use_cases.save_termins_use_case import SaveTerminsUseCase
 class TerminsService:
     def __init__(self,
                  termins_repository: TerminsRepository,
+                 category_of_termins_repository: CategoryOfTerminsRepository,
                  categories_of_termins_provider: CategoriesOfTerminsProvider,
+                 translation_service: TranslationService
                  ):
+        self.category_of_termins_repository = category_of_termins_repository
         self.termins_repository = termins_repository
+        self.translation_service = translation_service
         self.categories_of_termins_provider = categories_of_termins_provider
 
-        self.get_termins_use_case = GetTerminsUseCase(self.termins_repository)
+        self.get_termins_use_case = GetTerminsUseCase(
+            termins_repository=self.termins_repository,
+            translation_service=self.translation_service,
+            category_of_termins_repository=self.category_of_termins_repository
+        )
         self.save_termins_use_case = SaveTerminsUseCase(self.termins_repository)
         # self.parse_termins_use_case = ParseTerminsUseCase(self.termins_parser_interface)
 
@@ -60,4 +70,6 @@ class TerminsService:
         self.parse_termins_category(3)
         self.parse_termins_category(4)
 
+    def get_text_category_of_termins(self, category_of_termins: int, locale: str):
+        return self.get_termins_use_case.get_type(category_of_termins=category_of_termins, locale=locale)
 

@@ -4,7 +4,7 @@ from infrastructure.db.base import Base
 from infrastructure.db.models.orm_template_columns import intpk, created_at
 
 
-class CategoriesOfTermins(Base):
+class CategoriesOfTerminsOrm(Base):
     __tablename__ = "categories_of_termins"
 
     category_id: Mapped[intpk]
