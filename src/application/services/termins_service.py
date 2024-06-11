@@ -35,6 +35,7 @@ class TerminsService:
 
     def parse_termins_category(self, termin_category_id: int):
         parse_use_case = None
+        # print(termin_category_id)
         match termin_category_id:
             case 1:
                 parse_use_case = ParseTerminsUseCase(self.adressanderung_parser_interface)
@@ -44,7 +45,7 @@ class TerminsService:
                 parse_use_case = ParseTerminsUseCase(self.registration_office_parser_interface)
             case 4:
                 parse_use_case = ParseTerminsUseCase(self.others_parser_interface)
-
+        # print(parse_use_case.termins_parser)
         if parse_use_case is not None:
             result = parse_use_case.execute()
             # print(result)
