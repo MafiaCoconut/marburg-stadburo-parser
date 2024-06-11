@@ -53,4 +53,10 @@ class TerminsService:
 
             return result
 
+    def parse_all(self):
+        self.parse_termins_category(1)
+        self.parse_termins_category(2)
+        self.parse_termins_category(3)
+        self.parse_termins_category(4)
+
 

@@ -16,7 +16,7 @@ pydantic-settings==2.3.1
 requests==2.31.0
 selenium==4.11.2
 sqlalchemy==2.0.30
-unicorn
+unicorn==2.0.1.post1
 
 
 
