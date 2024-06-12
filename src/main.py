@@ -15,11 +15,6 @@ app.include_router(router)
 async def startup_event():
     start_scheduler_service.execute()
     logs_config.config()
-    # TODO красивый вывод текст
-    # TODO оставшиеся 3 парсера доделать
-    # TODO доделать api
-
-
 
 
 if __name__ == '__main__':
