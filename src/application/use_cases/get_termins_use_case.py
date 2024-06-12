@@ -42,8 +42,6 @@ class GetTerminsUseCase:
                 if k % 6 == 0:
                     text += '\n'
 
-            print(text)
-
 
             """
             day

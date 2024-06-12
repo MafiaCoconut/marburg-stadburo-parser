@@ -7,7 +7,7 @@ router = APIRouter()
 
 
 @router.get("/parser/{category_of_termin_id}")
-def start_parser(category_of_termin_id: int, get_result: bool):
+def start_parser(category_of_termin_id: int, get_result: bool= False):
     if get_result:
         return termins_service.parse_termins_category(termin_category_id=category_of_termin_id)
     else:

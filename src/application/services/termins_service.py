@@ -44,6 +44,7 @@ class TerminsService:
         return self.categories_of_termins_provider.get_others_parser_interface()
 
     def parse_termins_category(self, termin_category_id: int):
+        self.termins_repository.delete_by_category(category_id=termin_category_id)
         parse_use_case = None
         # print(termin_category_id)
         match termin_category_id:
@@ -58,10 +59,10 @@ class TerminsService:
         # print(parse_use_case.termins_parser)
         if parse_use_case is not None:
             result = parse_use_case.execute()
-            # print(result)
-            if result['termins']:
+            if result.get('termins') is not None:
                 self.save_termins_use_case.save_many(termins=result['termins'], termin_category_id=termin_category_id)
-
+            if result.get('error') is None:
+                result['error'] = "Произошла ошибка"
             return result
 
     def parse_all(self):
