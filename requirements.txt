@@ -12,6 +12,8 @@ psycopg==3.1.19
 psycopg-binary==3.1.19
 pydantic==2.7.3
 pydantic-settings==2.3.1
+pytest==7.3.1
+pytest-dotenv==0.5.2
 
 requests==2.31.0
 selenium==4.11.2
