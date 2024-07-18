@@ -42,12 +42,6 @@ class GetTerminsUseCase:
                 if k % 6 == 0:
                     text += '\n'
 
-
-            """
-            day
-            termin1 termin2 termin3 termin4 termin5 termin6 
-            """
-
         else:
             text = self.translation_service.translate(
                 message_id="lack-of-terms",
@@ -55,4 +49,5 @@ class GetTerminsUseCase:
 
         return text
 
-
+    def get_termins_obj_list(self, category_of_termins: int):
+        return self.termins_repository.get_by_type(category_id=category_of_termins)

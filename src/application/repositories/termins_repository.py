@@ -15,12 +15,12 @@ class TerminsRepository(ABC):
 
     @staticmethod
     @abstractmethod
-    def save(termin: Termin, category_id: int) -> None:
+    def save(termin: Termin) -> None:
         pass
 
     @staticmethod
     @abstractmethod
-    def save_many(termins: list[Termin], category_id: int) -> None:
+    def save_many(termins: list[Termin]) -> None:
         pass
 
     @staticmethod

@@ -46,3 +46,66 @@ def termins():
         ]
     )
 
+
+@pytest.fixture
+def termins_list(request):
+    match request.param:
+        case "adressanderung":
+            adressanderung_termins()
+        case "eat_abholung":
+            eat_abholung_termins()
+        case "registration_office":
+            registration_office_termins()
+        case "others":
+            others_termins()
+
+
+def adressanderung_termins():
+    return (
+        1,
+        [
+            Termin(category_id=1, time=datetime(year=2024, month=7, day=4, hour=16, minute=15)),
+            Termin(category_id=1, time=datetime(year=2024, month=7, day=4, hour=16, minute=30)),
+            Termin(category_id=1, time=datetime(year=2024, month=7, day=4, hour=16, minute=45)),
+            Termin(category_id=1, time=datetime(year=2024, month=7, day=4, hour=16, minute=00)),
+        ]
+    )
+
+
+def eat_abholung_termins():
+    return (
+        2,
+        [
+            Termin(category_id=2, time=datetime(year=2024, month=7, day=4, hour=16, minute=15)),
+            Termin(category_id=2, time=datetime(year=2024, month=7, day=4, hour=16, minute=30)),
+            Termin(category_id=2, time=datetime(year=2024, month=7, day=4, hour=16, minute=45)),
+            Termin(category_id=2, time=datetime(year=2024, month=7, day=4, hour=16, minute=00)),
+            Termin(category_id=2, time=datetime(year=2024, month=7, day=4, hour=17, minute=00)),
+        ])
+
+
+def registration_office_termins():
+    return (
+        3,
+        [
+            Termin(category_id=3, time=datetime(year=2024, month=7, day=4, hour=16, minute=15)),
+            Termin(category_id=3, time=datetime(year=2024, month=7, day=4, hour=16, minute=30)),
+            Termin(category_id=3, time=datetime(year=2024, month=7, day=4, hour=16, minute=45)),
+            Termin(category_id=3, time=datetime(year=2024, month=7, day=4, hour=16, minute=00)),
+            Termin(category_id=3, time=datetime(year=2024, month=7, day=4, hour=17, minute=00)),
+            Termin(category_id=3, time=datetime(year=2024, month=7, day=4, hour=17, minute=30)),
+        ])
+
+
+def others_termins():
+    return (
+        4,
+        [
+            Termin(category_id=4, time=datetime(year=2024, month=7, day=4, hour=16, minute=15)),
+            Termin(category_id=4, time=datetime(year=2024, month=7, day=4, hour=16, minute=30)),
+            Termin(category_id=4, time=datetime(year=2024, month=7, day=4, hour=16, minute=45)),
+            Termin(category_id=4, time=datetime(year=2024, month=7, day=4, hour=16, minute=00)),
+            Termin(category_id=4, time=datetime(year=2024, month=7, day=4, hour=18, minute=00)),
+            Termin(category_id=4, time=datetime(year=2024, month=7, day=4, hour=18, minute=30)),
+            Termin(category_id=4, time=datetime(year=2024, month=7, day=4, hour=19, minute=00)),
+        ])

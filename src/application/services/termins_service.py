@@ -5,6 +5,7 @@ from application.services.translation_service import TranslationService
 from application.use_cases.get_termins_use_case import GetTerminsUseCase
 from application.use_cases.parse_termins_use_case import ParseTerminsUseCase
 from application.use_cases.save_termins_use_case import SaveTerminsUseCase
+from domain.entities.termin import Termin
 
 
 class TerminsService:
@@ -73,4 +74,10 @@ class TerminsService:
 
     def get_text_category_of_termins(self, category_of_termins: int, locale: str):
         return self.get_termins_use_case.get_type(category_of_termins=category_of_termins, locale=locale)
+
+    def save_termins(self, termins: list[Termin]):
+        self.termins_repository.save_many(termins)
+
+    def get_termins_obj_list(self, category_of_termins: int):
+        return self.get_termins_use_case.get_termins_obj_list(category_of_termins=category_of_termins)
 

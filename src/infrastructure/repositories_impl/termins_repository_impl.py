@@ -26,21 +26,21 @@ class TerminsRepositoryImpl(TerminsRepository):
 
 
     @staticmethod
-    def save(termin: Termin, category_id: int) -> None:
+    def save(termin: Termin) -> None:
         with session_factory() as session:
             termin_orm = TerminsOrm(
-                category_id=category_id,
+                category_id=termin.category_id,
                 time=termin.time
             )
             session.add(termin_orm)
             session.commit()
 
     @staticmethod
-    def save_many(termins: list[Termin], category_id: int) -> None:
+    def save_many(termins: list[Termin]) -> None:
         with session_factory() as session:
             for termin in termins:
                 termin_orm = TerminsOrm(
-                    category_id=category_id,
+                    category_id=termin.category_id,
                     time=termin.time
                 )
                 session.add(termin_orm)
