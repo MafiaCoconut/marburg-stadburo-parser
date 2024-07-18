@@ -17,7 +17,6 @@ def category_of_termins_repository():
     return CategoryOfTerminsRepository()
 
 
-
 @pytest.fixture
 def set_category_of_termins(category_of_termins, category_of_termin_repository):
     logging.info("Тестовые категории терминов инициализированы в бд")

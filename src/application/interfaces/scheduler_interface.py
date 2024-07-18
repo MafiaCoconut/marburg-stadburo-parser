@@ -4,12 +4,20 @@ from typing import List
 
 
 class SchedulerInterface(ABC):
+    @staticmethod
     @abstractmethod
-    def add_job(self, job) -> None:
+    def add_job(job) -> None:
         pass
 
+    @staticmethod
     @abstractmethod
-    def set_all_jobs(self) -> List:
+    def delete_job(job_id: str) -> None:
         pass
+
+    @staticmethod
+    @abstractmethod
+    def get_all_jobs():
+        pass
+
 
 
