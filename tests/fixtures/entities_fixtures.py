@@ -3,7 +3,7 @@ from datetime import datetime
 from domain.entities.category_of_termin import CategoryOfTermins
 from domain.entities.termin import Termin
 
-
+@pytest.fixture
 def category_of_termins():
     return (
         [
@@ -14,7 +14,7 @@ def category_of_termins():
         ]
     )
 
-
+@pytest.fixture
 def termins():
     return (
         [
@@ -51,13 +51,13 @@ def termins():
 def termins_list(request):
     match request.param:
         case "adressanderung":
-            adressanderung_termins()
+            return adressanderung_termins()
         case "eat_abholung":
-            eat_abholung_termins()
+            return eat_abholung_termins()
         case "registration_office":
-            registration_office_termins()
+            return registration_office_termins()
         case "others":
-            others_termins()
+            return others_termins()
 
 
 def adressanderung_termins():

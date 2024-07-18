@@ -8,7 +8,6 @@ from icecream import ic
 
 sys.path.append(str(Path(__file__).parent.parent))
 
-from infrastructure.db.models.termins_orm import TerminsOrm
 from infrastructure.db.base import Base, sync_engine
 
 # Импорт фикстур
@@ -26,8 +25,6 @@ def setup_database():
     Base.metadata.create_all(sync_engine)
 
     yield
-
-
 
 
 

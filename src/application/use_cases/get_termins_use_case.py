@@ -1,6 +1,7 @@
 from application.repositories.category_of_termins_repository import CategoryOfTerminsRepository
 from application.repositories.termins_repository import TerminsRepository
 from application.services.translation_service import TranslationService
+from domain.entities.termin import Termin
 
 
 class GetTerminsUseCase:
@@ -19,7 +20,7 @@ class GetTerminsUseCase:
 
     def get_type(self, category_of_termins: int, locale: str):
         termins = self.termins_repository.get_by_type(category_of_termins)
-        if termins is not None:
+        if termins:
 
             text = self.translation_service.translate(
                 message_id="list-of-all-termins",
@@ -50,4 +51,13 @@ class GetTerminsUseCase:
         return text
 
     def get_termins_obj_list(self, category_of_termins: int):
-        return self.termins_repository.get_by_type(category_id=category_of_termins)
+        termins = self.termins_repository.get_by_type(category_id=category_of_termins)
+        new_termins = []
+        for termin in termins:
+            new_termins.append(
+                Termin(
+                    category_id=termin.category_id,
+                    time=termin.time
+                )
+            )
+        return new_termins

@@ -3,10 +3,13 @@ from icecream import ic
 
 
 class TranslationService:
-    def __init__(self):
+    def __init__(self, status='Production'):
         # self.locales = locales
         # self.loader = FluentResourceLoader("../../infrastructure/locales/{locale}")
-        self.loader = FluentResourceLoader("infrastructure/locales/{locale}")
+        if status == "Production":
+            self.loader = FluentResourceLoader("infrastructure/locales/{locale}")
+        elif status == "Tests":
+            self.loader = FluentResourceLoader("src/infrastructure/locales/{locale}")
         # print(self.loader.localize_path())
         # self.loader.localize_path()
         self.l10n = {
