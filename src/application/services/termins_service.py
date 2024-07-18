@@ -61,7 +61,7 @@ class TerminsService:
         if parse_use_case is not None:
             result = parse_use_case.execute()
             if result.get('termins') is not None:
-                self.save_termins_use_case.save_many(termins=result['termins'], termin_category_id=termin_category_id)
+                self.save_termins_use_case.save_many(termins=result['termins'])
             if result.get('error') is None:
                 result['error'] = "Произошла ошибка"
             return result

@@ -29,7 +29,6 @@ def get_selenium_driver():
     }
 
     options = FirefoxOptions()
-    print(os.getenv("DEVICE"))
     if os.getenv("DEVICE") == "Ubuntu" or True:
         options.binary_location = "/usr/bin/firefox"
 
