@@ -13,7 +13,8 @@ class TranslationService:
             'en': FluentLocalization(["en"], ["base_en.ftl"], self.loader),
             'ru': FluentLocalization(["ru"], ["base_ru.ftl"], self.loader),
             'uk': FluentLocalization(["uk"], ["base_uk.ftl"], self.loader),
-            'de': FluentLocalization(["de"], ["base_de.ftl"], self.loader)
+            'de': FluentLocalization(["de"], ["base_de.ftl"], self.loader),
+            'ar': FluentLocalization(["ar"], ["base_ar.ftl"], self.loader),
         }
 
     def translate(self, message_id: str, locale: str, **kwargs):
@@ -38,7 +39,7 @@ class TranslationService:
 
 
 if __name__ == "__main__":
-    translation_object = TranslationService(['en', 'de', 'ru'])
+    translation_object = TranslationService()
     print(translation_object.translate(message_id="menu-links", locale='ru'))
     print(translation_object.translate(message_id="menu-links", locale='de'))
     print(translation_object.translate(message_id="menu-links", locale='en'))
