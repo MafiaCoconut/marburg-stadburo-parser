@@ -7,11 +7,8 @@ router = APIRouter()
 
 
 @router.get("/parser/all")
-def start_parser_all(get_result: bool):
-    if get_result:
-        return termins_service.parse_all()
-    else:
-        termins_service.parse_all()
+def start_parser_all():
+    return termins_service.parse_all()
 
 
 @router.get("/parser/{category_of_termin_id}")

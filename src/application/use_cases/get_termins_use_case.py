@@ -36,7 +36,7 @@ class GetTerminsUseCase:
                 if termin.time.day != termins[i-1].time.day:
                     if text[-1] != '\n':
                         text += '\n'
-                    text += f"\n<b>{termin.time.strftime('%d.%m.%Y')}<b>\n"
+                    text += f"\n<b>{termin.time.strftime('%d.%m.%Y')}</b>\n"
                     k = 1
 
                 text += f"{termin.time.strftime('%H:%M')} "
@@ -47,8 +47,8 @@ class GetTerminsUseCase:
             text = self.translation_service.translate(
                 message_id="lack-of-terms",
                 locale=locale)
-
-        return text
+        result = {'text': text, 'error': None}
+        return result
 
     def get_termins_obj_list(self, category_of_termins: int):
         termins = self.termins_repository.get_by_type(category_id=category_of_termins)
