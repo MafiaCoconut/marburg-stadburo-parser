@@ -6,12 +6,12 @@ from infrastructure.config.services_config import termins_service
 router = APIRouter()
 
 
-@router.get("/parser/all")
+@router.post("/parser/all")
 async def start_parser_all():
     return await termins_service.parse_all()
 
 
-@router.get("/parser/{category_of_termin_id}")
+@router.post("/parser/{category_of_termin_id}")
 async def start_parser(category_of_termin_id: str, get_result: bool = False):
     if get_result:
         return await termins_service.parse_termins_category(termin_category_id=int(category_of_termin_id))
