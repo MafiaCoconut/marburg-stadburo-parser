@@ -5,37 +5,37 @@ from domain.entities.termin import Termin
 class TerminsRepository(ABC):
     @staticmethod
     @abstractmethod
-    def get_all() -> list[Termin]:
+    async def get_all() -> list[Termin]:
         pass
 
     @staticmethod
     @abstractmethod
-    def get_by_type(category_id: int) -> list[Termin]:
+    async def get_by_type(category_id: int) -> list[Termin]:
         pass
 
     @staticmethod
     @abstractmethod
-    def save(termin: Termin) -> None:
+    async def save(termin: Termin) -> None:
         pass
 
     @staticmethod
     @abstractmethod
-    def save_many(termins: list[Termin]) -> None:
+    async def save_many(termins: list[Termin]) -> None:
         pass
 
     @staticmethod
     @abstractmethod
-    def delete_all() -> None:
+    async def delete_all() -> None:
         pass
 
     @staticmethod
     @abstractmethod
-    def delete_by_category(category_id: int) -> None:
+    async def delete_by_category(category_id: int) -> None:
         pass
 
     @staticmethod
     @abstractmethod
-    def delete(termin_id: int) -> None:
+    async def delete(termin_id: int) -> None:
         pass
 
 

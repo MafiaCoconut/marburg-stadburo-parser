@@ -8,67 +8,68 @@ from infrastructure.db.models.termins_orm import TerminsOrm
 
 class TerminsRepositoryImpl(TerminsRepository):
     @staticmethod
-    def get_all() -> list[Termin]:
-        with async_session_factory() as session:
+    async def get_all() -> list[Termin]:
+        async with async_session_factory() as session:
             query = select(TerminsOrm)
-            result = session.execute(query)
+            result = await session.execute(query)
             return result.scalars().all()
 
     @staticmethod
-    def get_by_type(category_id: int) -> list[Termin]:
-        with async_session_factory() as session:
+    async def get_by_type(category_id: int) -> list[Termin]:
+        async with async_session_factory() as session:
             query = (
                 select(TerminsOrm)
                 .filter(TerminsOrm.category_id == int(category_id))
             )
-            res = session.execute(query)
+            res = await session.execute(query)
             return res.scalars().all()
 
 
     @staticmethod
-    def save(termin: Termin) -> None:
-        with async_session_factory() as session:
+    async def save(termin: Termin) -> None:
+        async with async_session_factory() as session:
             termin_orm = TerminsOrm(
                 category_id=termin.category_id,
                 time=termin.time
             )
             session.add(termin_orm)
-            session.commit()
+            await session.commit()
 
     @staticmethod
-    def save_many(termins: list[Termin]) -> None:
-        with async_session_factory() as session:
+    async def save_many(termins: list[Termin]) -> None:
+        async with async_session_factory() as session:
             for termin in termins:
                 termin_orm = TerminsOrm(
                     category_id=termin.category_id,
                     time=termin.time
                 )
                 session.add(termin_orm)
-            session.commit()
+            await session.commit()
 
     @staticmethod
-    def delete_all() -> None:
-        with async_session_factory() as session:
+    async def delete_all() -> None:
+        async with async_session_factory() as session:
             query = delete(TerminsOrm)
-            session.execute(query)
-            session.commit()
+            await session.execute(query)
+            await session.commit()
 
     @staticmethod
-    def delete_by_category(category_id: int) -> None:
-        with async_session_factory() as session:
+    async def delete_by_category(category_id: int) -> None:
+        async with async_session_factory() as session:
             query = (
                 delete(TerminsOrm)
                 .filter(TerminsOrm.category_id == int(category_id))
             )
-            session.execute(query)
-            session.commit()
+            await session.execute(query)
+            await session.commit()
 
     @staticmethod
-    def delete(termin_id: int) -> None:
-        with async_session_factory() as session:
+    async def delete(termin_id: int) -> None:
+        async with async_session_factory() as session:
             query = (
                 delete(TerminsOrm)
                 .filter(TerminsOrm.termin_id == int(termin_id))
             )
-            session.execute(query)
-            session.commit()
+            await session.execute(query)
+            await session.commit()
+

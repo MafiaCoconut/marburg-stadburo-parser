@@ -75,7 +75,6 @@ class AdressanderungParserInterface(BaseParserInterfaceImpl):
 
         return {'termins': result}
 
-
     def get_termins_per_day(self, day_id: int, day: str, termins: list):
         row = len(self.driver.find_elements(By.XPATH, f'//*[@id="{day_id}"]/table/tbody/*'))
         for i in range(1, row + 1):

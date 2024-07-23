@@ -44,8 +44,8 @@ class TerminsService:
     def others_parser_interface(self):
         return self.categories_of_termins_provider.get_others_parser_interface()
 
-    def parse_termins_category(self, termin_category_id: int):
-        self.termins_repository.delete_by_category(category_id=termin_category_id)
+    async def parse_termins_category(self, termin_category_id: int):
+        await self.termins_repository.delete_by_category(category_id=termin_category_id)
         parse_use_case = None
         # print(termin_category_id)
         match termin_category_id:
@@ -61,23 +61,23 @@ class TerminsService:
         if parse_use_case is not None:
             result = parse_use_case.execute()
             if result.get('termins') is not None:
-                self.save_termins_use_case.save_many(termins=result['termins'])
+                await self.save_termins_use_case.save_many(termins=result['termins'])
             if result.get('error') is None:
                 result['error'] = "Произошла ошибка"
             return result
 
-    def parse_all(self):
-        self.parse_termins_category(1)
-        self.parse_termins_category(2)
-        self.parse_termins_category(3)
-        self.parse_termins_category(4)
+    async def parse_all(self):
+        await self.parse_termins_category(1)
+        await self.parse_termins_category(2)
+        await self.parse_termins_category(3)
+        await self.parse_termins_category(4)
 
-    def get_text_category_of_termins(self, category_of_termins: int, locale: str):
-        return self.get_termins_use_case.get_type(category_of_termins=category_of_termins, locale=locale)
+    async def get_text_category_of_termins(self, category_of_termins: int, locale: str):
+        return await self.get_termins_use_case.get_type(category_of_termins=category_of_termins, locale=locale)
 
-    def save_termins(self, termins: list[Termin]):
-        self.termins_repository.save_many(termins)
+    async def save_termins(self, termins: list[Termin]):
+        await self.termins_repository.save_many(termins)
 
-    def get_termins_obj_list(self, category_of_termins: int):
-        return self.get_termins_use_case.get_termins_obj_list(category_of_termins=category_of_termins)
+    async def get_termins_obj_list(self, category_of_termins: int):
+        return await self.get_termins_use_case.get_termins_obj_list(category_of_termins=category_of_termins)
 

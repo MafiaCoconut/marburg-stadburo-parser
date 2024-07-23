@@ -14,18 +14,18 @@ class GetTerminsUseCase:
         self.category_of_termins_repository = category_of_termins_repository
         self.translation_service = translation_service
 
-    def get_all(self):
-        termins = self.termins_repository.get_all()
+    async def get_all(self):
+        termins = await self.termins_repository.get_all()
         return termins
 
-    def get_type(self, category_of_termins: int, locale: str):
-        termins = self.termins_repository.get_by_type(category_of_termins)
+    async def get_type(self, category_of_termins: int, locale: str):
+        termins = await self.termins_repository.get_by_type(category_of_termins)
         if termins:
 
-            text = self.translation_service.translate(
+            text = await self.translation_service.translate(
                 message_id="list-of-all-termins",
                 locale=locale,
-                termins_name=self.category_of_termins_repository.get_name(category_id=category_of_termins),
+                termins_name=await self.category_of_termins_repository.get_name(category_id=category_of_termins),
                 time=termins[0].created_at.strftime("%H:%M"),
                 day_last_activate=termins[0].created_at.strftime("%d.%m.%Y")
             ) + "\n\n"
@@ -44,14 +44,14 @@ class GetTerminsUseCase:
                     text += '\n'
 
         else:
-            text = self.translation_service.translate(
+            text = await self.translation_service.translate(
                 message_id="lack-of-terms",
                 locale=locale)
         result = {'text': text, 'error': None}
         return result
 
-    def get_termins_obj_list(self, category_of_termins: int):
-        termins = self.termins_repository.get_by_type(category_id=category_of_termins)
+    async def get_termins_obj_list(self, category_of_termins: int):
+        termins = await self.termins_repository.get_by_type(category_id=category_of_termins)
         new_termins = []
         for termin in termins:
             new_termins.append(

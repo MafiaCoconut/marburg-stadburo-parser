@@ -8,28 +8,28 @@ from infrastructure.db.models.categories_of_termins_orm import CategoriesOfTermi
 
 class CategoryOfTerminsRepositoryImpl(CategoryOfTerminsRepository):
     @staticmethod
-    def get_name(category_id: int):
-        with async_session_factory() as session:
+    async def get_name(category_id: int):
+        async with async_session_factory() as session:
             query = (select(CategoriesOfTerminsOrm.name).filter(CategoriesOfTerminsOrm.category_id == category_id))
-            result = session.execute(query)
+            result = await session.execute(query)
             return result.scalars().all()[0]
 
     @staticmethod
-    def save(category_of_termins: CategoryOfTermins):
-        with async_session_factory() as session:
+    async def save(category_of_termins: CategoryOfTermins):
+        async with async_session_factory() as session:
             category_of_termins_orm = CategoriesOfTerminsOrm(
                 category_id=category_of_termins.category_id,
                 name=category_of_termins.name
             )
             session.add(category_of_termins_orm)
-            session.commit()
+            await session.commit()
 
     @staticmethod
-    def delete_all():
-        with async_session_factory() as session:
+    async def delete_all():
+        async with async_session_factory() as session:
 
-            session.execute(delete(CategoriesOfTerminsOrm))
-            session.execute(text(f"ALTER SEQUENCE {CategoriesOfTerminsOrm.__tablename__}_category_id_seq RESTART WITH 1;"))
+            await session.execute(delete(CategoriesOfTerminsOrm))
+            await session.execute(text(f"ALTER SEQUENCE {CategoriesOfTerminsOrm.__tablename__}_category_id_seq RESTART WITH 1;"))
 
-            session.commit()
+            await session.commit()
 
