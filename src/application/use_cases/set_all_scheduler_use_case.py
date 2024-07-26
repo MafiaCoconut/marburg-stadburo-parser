@@ -32,17 +32,43 @@ class SetAllSchedulersJobsUseCase:
             Job(
                 func=self.termins_service.parse_all,
                 trigger='cron',
-                job_id="parser_stadburo_2",
-                hour=13,
+                job_id="parser_stadburo_3",
+                hour=18,
                 minute=0)
         )
         self.scheduler_interface.add_job(
             Job(
                 func=self.termins_service.parse_all,
                 trigger='cron',
-                job_id="parser_stadburo_3",
-                hour=18,
+                job_id="parser_stadburo_2",
+                hour=13,
                 minute=0)
         )
 
+        # self.scheduler_interface.add_job(
+        #     Job(
+        #         func=self.termins_service.parse_all,
+        #         trigger='cron',
+        #         job_id="parser_stadburo_1 5",
+        #         hour=9,
+        #         minute=0)
+        # )
+        # self.scheduler_interface.add_job(
+        #     Job(
+        #         func=self.termins_service.parse_all,
+        #         trigger='cron',
+        #         job_id="parser_stadburo_2 5",
+        #         hour=13,
+        #         minute=0)
+        # )
+        # self.scheduler_interface.add_job(
+        #     Job(
+        #         func=self.termins_service.parse_all,
+        #         trigger='cron',
+        #         job_id="parser_stadburo_3 5",
+        #         hour=18,
+        #         minute=0)
+        # )
+
         print(self.scheduler_interface.get_all_jobs())
+

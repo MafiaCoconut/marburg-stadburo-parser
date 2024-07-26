@@ -13,7 +13,8 @@ class SchedulerInterfaceImpl(SchedulerInterface):
             trigger=job.trigger,
             hour=job.hour,
             minute=job.minute,
-            args=job.args
+            args=job.args,
+            id=job.job_id,
         )
 
     @staticmethod
@@ -22,5 +23,5 @@ class SchedulerInterfaceImpl(SchedulerInterface):
 
     @staticmethod
     def get_all_jobs():
-        return scheduler.get_jobs()
+        return [job for job in scheduler.get_jobs()]
 
