@@ -1,4 +1,5 @@
 from infrastructure.interfaces_impl.adressanderung_parser_interface_impl import AdressanderungParserInterface
+from infrastructure.interfaces_impl.aufenthaltstitel_parser_interface_impl import AufenthaltstitelParserInterface
 from infrastructure.interfaces_impl.eat_abholung_parser_interface_impl import eATAbholungParserInterface
 from infrastructure.interfaces_impl.others_parser_interface_impl import OthersParserInterface
 from infrastructure.interfaces_impl.registration_office_parser_interface_impl import RegistrationOfficeParserInterface
@@ -10,3 +11,4 @@ adressanderung_parser_interface = AdressanderungParserInterface()
 eat_abholung_parser_interface = eATAbholungParserInterface()
 registration_office_parser_interface = RegistrationOfficeParserInterface()
 others_parser_interface = OthersParserInterface()
+auhenthaltstiteel_parser_interface = AufenthaltstitelParserInterface()

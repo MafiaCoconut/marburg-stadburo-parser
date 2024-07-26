@@ -17,3 +17,7 @@ class CategoriesOfTerminsProvider(ABC):
     def get_others_parser_interface(self):
         pass
 
+    @abstractmethod
+    def get_auhenthaltstiteel_parser_interface(self):
+        pass
+

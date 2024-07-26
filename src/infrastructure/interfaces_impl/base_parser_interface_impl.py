@@ -27,7 +27,7 @@ class BaseParserInterfaceImpl(TerminsParserInterface):
         items.click()
         time.sleep(self.waiting_time)
 
-        items = self.driver.find_element(By.XPATH, '//*[@id="suggest_location_content"]/form/input[4]')
+        items = self.driver.find_element(By.XPATH, '/html/body/main/div/details[2]/div/form/input[4]')
         items.click()
         time.sleep(self.waiting_time)
 

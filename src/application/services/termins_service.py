@@ -44,6 +44,12 @@ class TerminsService:
     def others_parser_interface(self):
         return self.categories_of_termins_provider.get_others_parser_interface()
 
+    @property
+    def auhenthaltstiteel_parser_interface(self):
+        return self.categories_of_termins_provider.get_auhenthaltstiteel_parser_interface()
+
+
+
     async def parse_termins_category(self, termin_category_id: int):
         await self.termins_repository.delete_by_category(category_id=termin_category_id)
         parse_use_case = None
@@ -57,6 +63,8 @@ class TerminsService:
                 parse_use_case = ParseTerminsUseCase(self.registration_office_parser_interface)
             case 4:
                 parse_use_case = ParseTerminsUseCase(self.others_parser_interface)
+            case 5:
+                parse_use_case = ParseTerminsUseCase(self.auhenthaltstiteel_parser_interface)
         # print(parse_use_case.termins_parser)
         if parse_use_case is not None:
             result = parse_use_case.execute()
