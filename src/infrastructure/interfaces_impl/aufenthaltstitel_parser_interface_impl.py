@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 import time
 
@@ -26,7 +27,8 @@ class AufenthaltstitelParserInterface(BaseParserInterfaceImpl):
             result = self.get_termins()
 
         except Exception as e:
-            pass
+            error_logger = logging.getLogger('error_logger')
+            error_logger.error(e)
             # print(e)
 
         finally:
