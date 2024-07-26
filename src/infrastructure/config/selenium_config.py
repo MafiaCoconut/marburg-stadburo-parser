@@ -10,7 +10,7 @@ from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 def get_selenium_driver():
     FF_OPTIONS = [
-        # '--headless',
+        '--headless',
         '--no-sandbox',
         '--accept-cookies'
         '--disable-xss-auditor',
