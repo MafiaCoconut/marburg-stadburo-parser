@@ -10,7 +10,6 @@ from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 def get_selenium_driver():
     FF_OPTIONS = [
-        # '--headless',
         '--no-sandbox',
         '--accept-cookies'
         '--disable-xss-auditor',
@@ -31,21 +30,14 @@ def get_selenium_driver():
     options = FirefoxOptions()
     if os.getenv("DEVICE") == "Ubuntu" or True:
         options.binary_location = "/usr/bin/firefox"
-
-        # current_directory = os.path.dirname(os.path.realpath(__file__))
-        # current_directory = current_directory[:current_directory.rfind('/')]
-        # print(current_directory)
-        # ic(f"current_directory: {current_directory}")
-        # geckodriver_path = os.path.join(current_directory, "geckodriver")
-        # print(geckodriver_path)
-        # ic(f"geckodriver path: {geckodriver_path}")
-
         geckodriver_path = "/usr/local/bin/geckodriver"
-    # elif os.getenv("DEVICE") == "RaspberryTest":
+
     elif os.getenv("DEVICE") == "Raspberry" or os.getenv("DEVICE") == "RaspberryTest":
         geckodriver_path = "/app/geckodriver"
+        FF_OPTIONS.append('--headless')
+
     else:
-        raise Exception("Неправильный ENV DEVICE")
+        raise ValueError("Неправильный ENV DEVICE")
 
     [options.add_argument(opt) for opt in FF_OPTIONS]
     [options.set_preference(key, value) for key, value in SET_PREF.items()]
