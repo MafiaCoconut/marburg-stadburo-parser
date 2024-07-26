@@ -25,3 +25,6 @@ class SchedulerInterfaceImpl(SchedulerInterface):
     def get_all_jobs():
         return [job for job in scheduler.get_jobs()]
 
+    @staticmethod
+    def start_scheduler():
+        scheduler.start()

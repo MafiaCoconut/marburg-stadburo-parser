@@ -19,5 +19,10 @@ class SchedulerInterface(ABC):
     def get_all_jobs():
         pass
 
+    @staticmethod
+    @abstractmethod
+    def start_scheduler():
+        pass
+
 
 

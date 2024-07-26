@@ -66,6 +66,36 @@ class TerminsService:
         # print(parse_use_case.termins_parser)
         if parse_use_case is not None:
             result = parse_use_case.execute()
+            if termin_category_id == 5:
+                import os
+                import requests
+                import logging
+                system_logger = logging.getLogger('system_logging')
+                print(result)
+                if result.get('error') == "no-free-termins":
+                    url = f"https://api.telegram.org/bot{os.getenv('BOT_TOKEN')}/sendMessage"
+                    payload = {
+                        'chat_id': '603789543',
+                        'text': 'Нет терминов'
+                    }
+                    response = requests.post(url, data=payload)
+                    system_logger.info(response)
+                else:
+                    url = f"https://api.telegram.org/bot{os.getenv('BOT_TOKEN')}/sendMessage"
+                    payload = {
+                        'chat_id': '603789543',
+                        'text': 'Появились термины'
+                    }
+                    response = requests.post(url, data=payload)
+                    system_logger.info(response)
+                    url = f"https://api.telegram.org/bot{os.getenv('BOT_TOKEN')}/sendMessage"
+                    payload = {
+                        'chat_id': '601605560',
+                        'text': 'Появились термины'
+                    }
+                    response = requests.post(url, data=payload)
+                    system_logger.info(response)
+
             if result.get('termins') is not None:
                 await self.save_termins_use_case.save_many(termins=result['termins'])
             if result.get('error') is None:
