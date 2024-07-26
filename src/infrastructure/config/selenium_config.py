@@ -29,7 +29,7 @@ def get_selenium_driver():
     }
 
     options = FirefoxOptions()
-    if os.getenv("DEVICE") == "Ubuntu" or True:
+    if os.getenv("DEVICE") == "Ubuntu":
         options.binary_location = "/usr/bin/firefox"
 
         # current_directory = os.path.dirname(os.path.realpath(__file__))
@@ -43,7 +43,7 @@ def get_selenium_driver():
         geckodriver_path = "/usr/local/bin/geckodriver"
     # elif os.getenv("DEVICE") == "RaspberryTest":
     elif os.getenv("DEVICE") == "Raspberry" or os.getenv("DEVICE") == "RaspberryTest":
-        geckodriver_path = "/app/geckodriver"
+        geckodriver_path = "/src/geckodriver"
     else:
         raise Exception("Неправильный ENV DEVICE")
 
