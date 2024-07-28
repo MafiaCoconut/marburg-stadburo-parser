@@ -49,6 +49,11 @@ class TerminsService:
         return self.categories_of_termins_provider.get_auhenthaltstiteel_parser_interface()
 
     async def parse_termins_category(self, termin_category_id: int):
+        """
+        Функция запускает парсинг конкретной столовой
+        :param termin_category_id: ID категории
+        :return: {'termins': list[Termin], 'error': str}
+        """
         await self.termins_repository.delete_by_category(category_id=termin_category_id)
         parse_use_case = None
         # print(termin_category_id)
@@ -68,18 +73,26 @@ class TerminsService:
             result = parse_use_case.execute()
             if result.get('termins') is not None:
                 await self.save_termins_use_case.save_many(termins=result['termins'])
-            if result.get('error') is None:
-                result['error'] = "Произошла ошибка"
+            # if result.get('error') is not None:
+            #     result['error'] = "Произошла ошибка"
             return result
 
     async def parse_all(self):
+        """
+        Функция запускает парсинг всех столовых
+        """
         await self.parse_termins_category(1)
         await self.parse_termins_category(2)
         await self.parse_termins_category(3)
         await self.parse_termins_category(4)
 
-    async def get_text_category_of_termins(self, category_of_termins: int, locale: str):
-        return await self.get_termins_use_case.get_type(category_of_termins=category_of_termins, locale=locale)
+    async def get_category_of_termins_data(self, category_of_termins_id: int):
+        """
+        Функция возвращает словарь данных о выбранной столовой
+        :param category_of_termins_id:
+        :return: {'termins': list[Termin], 'category_of_termins': CategoryOfTermins, 'error': None}
+        """
+        return await self.get_termins_use_case.execute(category_of_termins_id=category_of_termins_id)
 
     async def save_termins(self, termins: list[Termin]):
         await self.termins_repository.save_many(termins)

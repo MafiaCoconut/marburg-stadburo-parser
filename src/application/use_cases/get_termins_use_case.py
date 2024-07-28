@@ -18,37 +18,52 @@ class GetTerminsUseCase:
         termins = await self.termins_repository.get_all()
         return termins
 
-    async def get_type(self, category_of_termins: int, locale: str):
-        termins = await self.termins_repository.get_by_type(category_of_termins)
-        if termins:
+    async def execute(self, category_of_termins_id: int):
+        """
+        Функция берёт данные из базы данных о выбранной категории и возвращает их в виде словаря
+        :param category_of_termins_id: ID категории в базе данных
+        :return: {'termins': list[Termin], 'category_of_termins': CategoryOfTermins, 'error': None}
+        """
+        termins = await self.termins_repository.get_by_type(category_of_termins_id)
+        #TODO переделать на возвращение объекта CategoryOfTermins а не только имени
+        category_of_termins_name = await self.category_of_termins_repository.get_name(category_id=category_of_termins_id)
 
-            text = await self.translation_service.translate(
-                message_id="list-of-all-termins",
-                locale=locale,
-                termins_name=await self.category_of_termins_repository.get_name(category_id=category_of_termins),
-                time=termins[0].created_at.strftime("%H:%M"),
-                day_last_activate=termins[0].created_at.strftime("%d.%m.%Y")
-            ) + "\n\n"
-
-            k = 0
-            for i, termin in enumerate(termins):
-                k += 1
-                if termin.time.day != termins[i-1].time.day:
-                    if text[-1] != '\n':
-                        text += '\n'
-                    text += f"\n<b>{termin.time.strftime('%d.%m.%Y')}</b>\n"
-                    k = 1
-
-                text += f"{termin.time.strftime('%H:%M')} "
-                if k % 6 == 0:
-                    text += '\n'
-
-        else:
-            text = await self.translation_service.translate(
-                message_id="lack-of-terms",
-                locale=locale)
-        result = {'text': text, 'error': None}
-        return result
+        return {'termins': termins,
+                'error': None,
+                'category_of_termins': {
+                    'category_id': category_of_termins_id,
+                    'name': category_of_termins_name
+                }
+        }
+        # if termins:
+        #
+        #     text = await self.translation_service.translate(
+        #         message_id="list-of-all-termins",
+        #         locale=locale,
+        #         termins_name=await self.category_of_termins_repository.get_name(category_id=category_of_termins),
+        #         time=termins[0].created_at.strftime("%H:%M"),
+        #         day_last_activate=termins[0].created_at.strftime("%d.%m.%Y")
+        #     ) + "\n\n"
+        #
+        #     k = 0
+        #     for i, termin in enumerate(termins):
+        #         k += 1
+        #         if termin.time.day != termins[i-1].time.day:
+        #             if text[-1] != '\n':
+        #                 text += '\n'
+        #             text += f"\n<b>{termin.time.strftime('%d.%m.%Y')}</b>\n"
+        #             k = 1
+        #
+        #         text += f"{termin.time.strftime('%H:%M')} "
+        #         if k % 6 == 0:
+        #             text += '\n'
+        #
+        # else:
+        #     text = await self.translation_service.translate(
+        #         message_id="lack-of-terms",
+        #         locale=locale)
+        # result = {'text': text, 'error': None}
+        # return result
 
     async def get_termins_obj_list(self, category_of_termins: int):
         termins = await self.termins_repository.get_by_type(category_id=category_of_termins)
