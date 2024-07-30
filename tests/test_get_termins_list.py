@@ -28,7 +28,7 @@ class TestGetTerminsList:
 
     @staticmethod
     def test_get_termins_list_without_data(termins_service, translation_service):
-        termins = termins_service.get_text_category_of_termins(category_of_termins=1, locale='en')
+        termins = termins_service.get_category_of_termins_data(category_of_termins=1, locale='en')
 
         assert termins == translation_service.translate(message_id="lack-of-terms",locale='en')
 
@@ -47,7 +47,7 @@ class TestGetTerminsList:
         category_of_termins, test_termins = termins_list
         termins_service.save_termins(test_termins)
         for language in ['ru', 'en', 'de', 'uk', 'ar']:
-            termins = termins_service.get_text_category_of_termins(
+            termins = termins_service.get_category_of_termins_data(
                 category_of_termins=category_of_termins, locale=language
             )
 
