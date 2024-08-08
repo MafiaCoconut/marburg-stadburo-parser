@@ -32,7 +32,8 @@ class TerminsRepositoryImpl(TerminsRepository):
             return [Termin(
                 termin_id=termin.termin_id,
                 category_id=termin.category_id,
-                time=termin.time
+                time=termin.time,
+                created_at=termin.created_at
             ) for termin in res.scalars().all()]
 
     async def save(self, termin: Termin) -> None:

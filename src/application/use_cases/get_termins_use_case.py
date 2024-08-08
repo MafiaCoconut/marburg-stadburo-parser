@@ -26,13 +26,16 @@ class GetTerminsUseCase:
         """
         termins = await self.termins_repository.get_by_type(category_of_termins_id)
         #TODO переделать на возвращение объекта CategoryOfTermins а не только имени
-        category_of_termins_name = await self.category_of_termins_repository.get_name(category_id=category_of_termins_id)
+        category_of_termins = await self.category_of_termins_repository.get(category_id=category_of_termins_id)
 
         return {'termins': termins,
                 'error': None,
                 'category_of_termins': {
-                    'category_id': category_of_termins_id,
-                    'name': category_of_termins_name
+                    'category_id': category_of_termins.category_id,
+                    'name': category_of_termins.name,
+                    'created_at': category_of_termins.created_at
+
+
                 }
         }
         # if termins:

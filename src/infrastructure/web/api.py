@@ -20,7 +20,7 @@ async def start_parser(category_of_termin_id: int, get_result: bool = False):
 
 
 @router.get("/category_of_termins{category_of_termins_id}/getData")
-async def get_text_category_of_termins_data(category_of_termins_id: int):
+async def get_category_of_termins_data(category_of_termins_id: int):
     """
     Функция возвращает по api данные о категории и текущих терминах
     :param category_of_termins_id: ID категории в базе данных

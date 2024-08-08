@@ -11,10 +11,10 @@ class CategoryOfTerminsRepositoryImpl(CategoryOfTerminsRepository):
     def __init__(self, session: AsyncSession):
         self.session = session
 
-    async def get_name(self, category_id: int) -> CategoryOfTermins:
+    async def get(self, category_id: int) -> CategoryOfTermins:
         async with self.session.begin():
             query = (
-                select(CategoriesOfTerminsOrm.name)
+                select(CategoriesOfTerminsOrm)
                 .where(CategoriesOfTerminsOrm.category_id == category_id)
             )
             result = await self.session.execute(query)
