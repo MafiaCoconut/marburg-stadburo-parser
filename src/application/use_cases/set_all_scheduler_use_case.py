@@ -1,7 +1,10 @@
 from datetime import datetime, timedelta
 
 from application.interfaces.scheduler_interface import SchedulerInterface
+from application.services.s3_service import S3Service
 from application.services.termins_service import TerminsService
+from application.use_cases.set_s3_scheduler_job import SetS3JobUseCase
+from application.use_cases.set_stadburo_jobs_use_case import SetStadburoJobsUseCase
 from domain.entities.job import Job
 
 
@@ -13,62 +16,25 @@ from domain.entities.job import Job
 class SetAllSchedulersJobsUseCase:
     def __init__(self,
                  scheduler_interface: SchedulerInterface,
-                 termins_service: TerminsService,
+                 set_stadburo_jobs_use_case: SetStadburoJobsUseCase,
+                 set_s3_job_use_case: SetS3JobUseCase
                  ):
-
         self.scheduler_interface = scheduler_interface
-        self.termins_service = termins_service
+        self.set_stadburo_jobs_use_case = set_stadburo_jobs_use_case
+        self.set_s3_job_use_case = set_s3_job_use_case
 
-    def execute(self):
-        self.scheduler_interface.add_job(
-            Job(
-                func=self.termins_service.parse_all,
-                trigger='cron',
-                job_id="parser_stadburo_1",
-                hour=9,
-                minute=0)
-        )
-        self.scheduler_interface.add_job(
-            Job(
-                func=self.termins_service.parse_all,
-                trigger='cron',
-                job_id="parser_stadburo_3",
-                hour=18,
-                minute=0)
-        )
-        self.scheduler_interface.add_job(
-            Job(
-                func=self.termins_service.parse_all,
-                trigger='cron',
-                job_id="parser_stadburo_2",
-                hour=13,
-                minute=0)
-        )
+    async def execute(self):
+        await self.set_stadburo_jobs()
+        await self.set_s3_jobs()
 
-        # self.scheduler_interface.add_job(
-        #     Job(
-        #         func=self.termins_service.parse_all,
-        #         trigger='cron',
-        #         job_id="parser_stadburo_1 5",
-        #         hour=9,
-        #         minute=0)
-        # )
-        # self.scheduler_interface.add_job(
-        #     Job(
-        #         func=self.termins_service.parse_all,
-        #         trigger='cron',
-        #         job_id="parser_stadburo_2 5",
-        #         hour=13,
-        #         minute=0)
-        # )
-        # self.scheduler_interface.add_job(
-        #     Job(
-        #         func=self.termins_service.parse_all,
-        #         trigger='cron',
-        #         job_id="parser_stadburo_3 5",
-        #         hour=18,
-        #         minute=0)
-        # )
+        await self.scheduler_interface.start()
 
-        print(self.scheduler_interface.get_all_jobs())
+    async def set_stadburo_jobs(self):
+        await self.set_stadburo_jobs_use_case.execute()
+
+    async def set_s3_jobs(self):
+        await self.set_s3_job_use_case.execute()
+
+
+
 

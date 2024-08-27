@@ -85,6 +85,7 @@ class TerminsService:
         await self.parse_termins_category(2)
         await self.parse_termins_category(3)
         await self.parse_termins_category(4)
+        await self.parse_termins_category(5)
 
     async def get_category_of_termins_data(self, category_of_termins_id: int):
         """

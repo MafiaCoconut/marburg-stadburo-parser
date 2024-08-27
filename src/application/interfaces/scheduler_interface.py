@@ -6,17 +6,22 @@ from typing import List
 class SchedulerInterface(ABC):
     @staticmethod
     @abstractmethod
-    def add_job(job) -> None:
+    async def start() -> None:
         pass
 
     @staticmethod
     @abstractmethod
-    def delete_job(job_id: str) -> None:
+    async def add_job(job) -> None:
         pass
 
     @staticmethod
     @abstractmethod
-    def get_all_jobs():
+    async def delete_job(job_id: str) -> None:
+        pass
+
+    @staticmethod
+    @abstractmethod
+    async def get_all_jobs():
         pass
 
 

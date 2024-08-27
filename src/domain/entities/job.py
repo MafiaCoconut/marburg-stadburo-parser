@@ -6,11 +6,13 @@ from pydantic import BaseModel, Field
 
 class Job(BaseModel):
     func: Callable = Field(default=None)
-    trigger: str | None = Field(default=None)
-    run_date: datetime | None = Field(default=None)
+    trigger: str = Field(default=None)
+    run_date: datetime = Field(default=None)
     hour: int | None = Field(default=None)
     minute: int | None = Field(default=None)
-    args: list | None = Field(default=None)
-    job_id: Optional[str] = Field(default=None)
+    day_of_week: str | None = Field(default=None)
+    args: list = Field(default=None)
+    id: Optional[str] = Field(default=None)
     job_type: Optional[str] = Field(default=None)
+
 

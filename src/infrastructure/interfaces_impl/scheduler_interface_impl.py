@@ -7,21 +7,27 @@ from infrastructure.config.scheduler_config import scheduler
 
 class SchedulerInterfaceImpl(SchedulerInterface):
     @staticmethod
-    def add_job(job: Job) -> None:
+    async def start() -> None:
+        scheduler.start()
+
+    @staticmethod
+    async def add_job(job: Job) -> None:
         scheduler.add_job(
             func=job.func,
             trigger=job.trigger,
             hour=job.hour,
             minute=job.minute,
             args=job.args,
-            id=job.job_id,
+            id=job.id,
         )
 
     @staticmethod
-    def delete_job(job_id: str) -> None:
+    async def delete_job(job_id: str) -> None:
         scheduler.remove_job(job_id)
 
     @staticmethod
-    def get_all_jobs():
-        return [job for job in scheduler.get_jobs()]
+    async def get_all_jobs():
+        jobs = scheduler.get_jobs()
+        return [f"{job.id} - {job.next_run_time}" for job in jobs]
+
 
