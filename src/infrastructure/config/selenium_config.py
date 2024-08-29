@@ -33,7 +33,7 @@ def get_selenium_driver():
         geckodriver_path = "/usr/local/bin/geckodriver"
 
     elif os.getenv("DEVICE") == "Raspberry" or os.getenv("DEVICE") == "RaspberryTest":
-        geckodriver_path = "/app/geckodriver"
+        geckodriver_path = "/src/geckodriver"
         FF_OPTIONS.append('--headless')
 
     else:
