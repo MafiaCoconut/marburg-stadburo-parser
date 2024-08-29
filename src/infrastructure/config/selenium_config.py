@@ -41,9 +41,10 @@ def get_selenium_driver():
 
     [options.add_argument(opt) for opt in FF_OPTIONS]
     [options.set_preference(key, value) for key, value in SET_PREF.items()]
-
+    print(geckodriver_path)
+    print(options)
     driver = webdriver.Firefox(service=Service(geckodriver_path), options=options)
-
+    print(driver)
     return driver
 
 if __name__ == '__main__':
