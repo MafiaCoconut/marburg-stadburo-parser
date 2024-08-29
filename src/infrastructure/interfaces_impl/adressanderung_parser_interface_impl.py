@@ -27,7 +27,7 @@ class AdressanderungParserInterface(BaseParserInterfaceImpl):
 
         except Exception as e:
             pass
-            # print(e)
+            print(e)
 
         finally:
             self.driver.close()
