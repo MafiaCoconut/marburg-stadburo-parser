@@ -28,7 +28,7 @@ def get_selenium_driver():
     }
 
     options = FirefoxOptions()
-    if os.getenv("DEVICE") == "Ubuntu" or True:
+    if os.getenv("DEVICE") == "Ubuntu":
         options.binary_location = "/usr/bin/firefox"
         geckodriver_path = "/usr/local/bin/geckodriver"
 
