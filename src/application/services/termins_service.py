@@ -1,4 +1,5 @@
 from application.providers.categories_of_termins_provider import CategoriesOfTerminsProvider
+from application.providers.repositories_provider import RepositoriesProvider
 from application.repositories.category_of_termins_repository import CategoryOfTerminsRepository
 from application.repositories.termins_repository import TerminsRepository
 from application.services.translation_service import TranslationService
@@ -10,22 +11,22 @@ from domain.entities.termin import Termin
 
 class TerminsService:
     def __init__(self,
-                 termins_repository: TerminsRepository,
+                 repositories_provider: RepositoriesProvider,
                  category_of_termins_repository: CategoryOfTerminsRepository,
                  categories_of_termins_provider: CategoriesOfTerminsProvider,
                  translation_service: TranslationService
                  ):
         self.category_of_termins_repository = category_of_termins_repository
-        self.termins_repository = termins_repository
+        self.repositories_provider = repositories_provider
         self.translation_service = translation_service
         self.categories_of_termins_provider = categories_of_termins_provider
 
         self.get_termins_use_case = GetTerminsUseCase(
-            termins_repository=self.termins_repository,
+            repositories_provider=self.repositories_provider,
             translation_service=self.translation_service,
             category_of_termins_repository=self.category_of_termins_repository
         )
-        self.save_termins_use_case = SaveTerminsUseCase(self.termins_repository)
+        self.save_termins_use_case = SaveTerminsUseCase(repositories_provider=self.repositories_provider)
         # self.parse_termins_use_case = ParseTerminsUseCase(self.termins_parser_interface)
 
     @property
@@ -54,7 +55,8 @@ class TerminsService:
         :param termin_category_id: ID категории
         :return: {'termins': list[Termin], 'error': str}
         """
-        await self.termins_repository.delete_by_category(category_id=termin_category_id)
+        termins_repository = self.repositories_provider.get_termins_repository()
+        await termins_repository.delete_by_category(category_id=termin_category_id)
         parse_use_case = None
         # print(termin_category_id)
         match termin_category_id:
@@ -96,7 +98,8 @@ class TerminsService:
         return await self.get_termins_use_case.execute(category_of_termins_id=category_of_termins_id)
 
     async def save_termins(self, termins: list[Termin]):
-        await self.termins_repository.save_many(termins)
+        termins_repository = self.repositories_provider.get_termins_repository()
+        await termins_repository.save_many(termins)
 
     async def get_termins_obj_list(self, category_of_termins: int):
         return await self.get_termins_use_case.get_termins_obj_list(category_of_termins=category_of_termins)

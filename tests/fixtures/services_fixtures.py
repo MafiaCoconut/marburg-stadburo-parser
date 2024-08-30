@@ -7,7 +7,7 @@ from application.services.translation_service import TranslationService
 @pytest.fixture
 def termins_service(termins_repository, category_of_termins_repository, categories_of_termins_provider, translation_service):
     return TerminsService(
-        termins_repository=termins_repository,
+        repositories_provider=repositories_provider,
         category_of_termins_repository=category_of_termins_repository,
         categories_of_termins_provider=categories_of_termins_provider,
         translation_service=translation_service
