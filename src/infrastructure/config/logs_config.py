@@ -31,7 +31,7 @@ def config():
     error_handler = logging.FileHandler("logs/error_data.log")
     error_handler.setFormatter(formatter)
 
-    if os.getenv("DEVICE") == "Laptop" or os.getenv("DEVICE") == "Ubuntu":
+    if os.getenv("MODE") == "DEVELOPMENT":
         console_handler = logging.StreamHandler()
         console_handler.setFormatter(formatter)
 
