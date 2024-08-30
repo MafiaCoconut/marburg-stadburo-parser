@@ -27,27 +27,14 @@ class TerminsService:
             category_of_termins_repository=self.category_of_termins_repository
         )
         self.save_termins_use_case = SaveTerminsUseCase(repositories_provider=self.repositories_provider)
+        self.parse_termins_use_case = ParseTerminsUseCase(
+            repositories_provider=self.repositories_provider,
+            save_termins_use_case=self.save_termins_use_case,
+            categories_of_termins_provider=self.categories_of_termins_provider
+        )
         # self.parse_termins_use_case = ParseTerminsUseCase(self.termins_parser_interface)
 
-    @property
-    def adressanderung_parser_interface(self):
-        return self.categories_of_termins_provider.get_adressanderung_parser_interface()
 
-    @property
-    def eat_abholung_parser_interface(self):
-        return self.categories_of_termins_provider.get_eat_abholung_parser_interface()
-
-    @property
-    def registration_office_parser_interface(self):
-        return self.categories_of_termins_provider.get_registration_office_parser_interface()
-
-    @property
-    def others_parser_interface(self):
-        return self.categories_of_termins_provider.get_others_parser_interface()
-
-    @property
-    def auhenthaltstiteel_parser_interface(self):
-        return self.categories_of_termins_provider.get_auhenthaltstiteel_parser_interface()
 
     async def parse_termins_category(self, termin_category_id: int):
         """
@@ -55,39 +42,14 @@ class TerminsService:
         :param termin_category_id: ID категории
         :return: {'termins': list[Termin], 'error': str}
         """
-        termins_repository = self.repositories_provider.get_termins_repository()
-        await termins_repository.delete_by_category(category_id=termin_category_id)
-        parse_use_case = None
-        # print(termin_category_id)
-        match termin_category_id:
-            case 1:
-                parse_use_case = ParseTerminsUseCase(self.adressanderung_parser_interface)
-            case 2:
-                parse_use_case = ParseTerminsUseCase(self.eat_abholung_parser_interface)
-            case 3:
-                parse_use_case = ParseTerminsUseCase(self.registration_office_parser_interface)
-            case 4:
-                parse_use_case = ParseTerminsUseCase(self.others_parser_interface)
-            case 5:
-                parse_use_case = ParseTerminsUseCase(self.auhenthaltstiteel_parser_interface)
-        # print(parse_use_case.termins_parser)
-        if parse_use_case is not None:
-            result = parse_use_case.execute()
-            if result.get('termins') is not None:
-                await self.save_termins_use_case.save_many(termins=result['termins'])
-            # if result.get('error') is not None:
-            #     result['error'] = "Произошла ошибка"
-            return result
+
+        return await self.parse_termins_use_case.parse_termins_category(termin_category_id=termin_category_id)
 
     async def parse_all(self):
         """
         Функция запускает парсинг всех столовых
         """
-        await self.parse_termins_category(1)
-        await self.parse_termins_category(2)
-        await self.parse_termins_category(3)
-        await self.parse_termins_category(4)
-        await self.parse_termins_category(5)
+        await self.parse_termins_use_case.parse_all()
 
     async def get_category_of_termins_data(self, category_of_termins_id: int):
         """

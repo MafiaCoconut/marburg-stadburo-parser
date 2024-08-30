@@ -1,4 +1,4 @@
-from fastapi import Depends, APIRouter, Path, Response, status
+from fastapi import Depends, APIRouter, Path, Response, status, BackgroundTasks
 from sqlalchemy.orm import Session
 
 from application.services.scheduler_service import SchedulerService
@@ -10,14 +10,18 @@ router = APIRouter()
 
 @router.post("/category_of_termins/startParsersAll")
 @log_api_decorator
-async def start_parser_all(response: Response):
-    return await termins_service.parse_all()
+async def start_parser_all(response: Response, background_tasks: BackgroundTasks):
+    # return await termins_service.parse_all()
+    background_tasks.add_task(termins_service.parse_all)
+    return {"message": "Request received, processing in background"}
 
 
 @router.post("/category_of_termins{category_of_termins}/startParser")
 @log_api_decorator
 async def start_parser(
-        category_of_termin_id: int, response: Response, get_result: bool = False,
+        category_of_termin_id: int,
+        response: Response, background_tasks: BackgroundTasks,
+        get_result: bool = False
 ):
     if get_result:
         return await termins_service.parse_termins_category(termin_category_id=int(category_of_termin_id))
@@ -63,4 +67,3 @@ async def get_all_jobs(
         scheduler_service: SchedulerService = Depends(get_scheduler_service)
 ):
     return {'text': await scheduler_service.get_all_jobs()}
-

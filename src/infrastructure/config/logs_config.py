@@ -52,20 +52,30 @@ def config():
     apscheduler_logger.addHandler(system_handler)
 
 
-def log_decorator(func, log_level=logging.DEBUG):
-    @wraps(func)
-    async def wrapper(*args, **kwargs):
-        system_logger.log(level=log_level, msg=f"Called function: {func.__name__}. Args: {args}. Kwargs: {kwargs}")
+def log_decorator(log_level=logging.DEBUG, print_args=True, print_kwargs=True):
+    def decorator(func):
+        @wraps(func)
+        async def wrapper(*args, **kwargs):
+            msg = f"Called function: {func.__name__}."
+            if print_args:
+                msg += f" Args: {args}."
+            if print_kwargs:
+                msg += f" Kwargs: {kwargs}"
 
-        # Выполнение функции и получение результата
-        result = await func(*args, **kwargs)
+            # system_logger.log(level=log_level, msg=msg)
+            system_logger.log(level=log_level, msg=msg)
+            # print(log_level)
+            # print(msg)
+            # Выполнение функции и получение результата
+            result = await func(*args, **kwargs)
 
-        # Запись результата выполнения функции
-        # system_logger.log(level=log_level, msg=f"Result: {result}")
+            # Запись результата выполнения функции
+            # system_logger.log(level=log_level, msg=f"Result: {result}")
 
-        return result
+            return result
 
-    return wrapper
+        return wrapper
+    return decorator
 
 
 def log_api_decorator(func, log_level=logging.INFO):

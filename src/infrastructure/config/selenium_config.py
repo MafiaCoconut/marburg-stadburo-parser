@@ -7,8 +7,11 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
+from infrastructure.config.logs_config import log_decorator
 
-def get_selenium_driver():
+
+@log_decorator()
+async def get_selenium_driver():
     FF_OPTIONS = [
         '--no-sandbox',
         '--accept-cookies'
@@ -41,10 +44,7 @@ def get_selenium_driver():
 
     [options.add_argument(opt) for opt in FF_OPTIONS]
     [options.set_preference(key, value) for key, value in SET_PREF.items()]
-    print(geckodriver_path)
-    print(options)
     driver = webdriver.Firefox(service=Service(geckodriver_path), options=options)
-    print(driver)
     return driver
 
 if __name__ == '__main__':

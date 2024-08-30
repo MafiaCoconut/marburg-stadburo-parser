@@ -11,7 +11,7 @@ class BaseParserInterfaceImpl(TerminsParserInterface):
         self.waiting_time = None
         self.driver = None
 
-    def parse(self) -> dict:
+    async def parse(self) -> dict:
         raise NotImplementedError("This method should be overridden in a subclass")
 
     def ablehnen_cookies(self):

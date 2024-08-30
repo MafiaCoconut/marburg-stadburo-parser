@@ -4,6 +4,7 @@ import time
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
+from infrastructure.config.logs_config import log_decorator
 from infrastructure.config.selenium_config import get_selenium_driver
 from infrastructure.interfaces_impl.base_parser_interface_impl import BaseParserInterfaceImpl
 
@@ -17,17 +18,18 @@ class AdressanderungParserInterface(BaseParserInterfaceImpl):
         # print('----------')
         self.url_start = "https://termine-reservieren.de/termine/marburg/select2?md=1"
 
-    def parse(self) -> dict:
+    @log_decorator()
+    async def parse(self) -> dict:
         result = {}
         try:
-            self.driver = get_selenium_driver()
+            self.driver = await get_selenium_driver()
             self.driver.get(self.url_start)
             self.ablehnen_cookies()
             result = self.get_termins()
 
         except Exception as e:
             pass
-            print(e)
+            print("ошибка при парсинге: ", e)
 
         finally:
             self.driver.close()
@@ -96,10 +98,5 @@ class AdressanderungParserInterface(BaseParserInterfaceImpl):
     def check_termins_exist(self):
         self.driver.find_element(By.XPATH, '//*[@id="inhalt"]/div[2]/h2')
 
-
-# if __name__ == '__main__':
-#     obj = AdressanderungParserInterface()
-#     obj.parse()
-    # obj.parse()
 
 

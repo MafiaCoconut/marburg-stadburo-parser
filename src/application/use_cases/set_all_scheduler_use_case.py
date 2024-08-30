@@ -6,6 +6,7 @@ from application.services.termins_service import TerminsService
 from application.use_cases.set_s3_scheduler_job import SetS3JobUseCase
 from application.use_cases.set_stadburo_jobs_use_case import SetStadburoJobsUseCase
 from domain.entities.job import Job
+from infrastructure.config.logs_config import log_decorator
 
 
 # from application.services.scheduler_service import SchedulerService
@@ -23,15 +24,18 @@ class SetAllSchedulersJobsUseCase:
         self.set_stadburo_jobs_use_case = set_stadburo_jobs_use_case
         self.set_s3_job_use_case = set_s3_job_use_case
 
+    @log_decorator()
     async def execute(self):
         await self.set_stadburo_jobs()
         await self.set_s3_jobs()
 
         await self.scheduler_interface.start()
 
+    @log_decorator()
     async def set_stadburo_jobs(self):
         await self.set_stadburo_jobs_use_case.execute()
 
+    @log_decorator()
     async def set_s3_jobs(self):
         await self.set_s3_job_use_case.execute()
 

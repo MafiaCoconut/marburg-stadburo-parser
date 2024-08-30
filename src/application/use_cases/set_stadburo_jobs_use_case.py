@@ -1,6 +1,7 @@
 from application.interfaces.scheduler_interface import SchedulerInterface
 from application.services.termins_service import TerminsService
 from domain.entities.job import Job
+from infrastructure.config.logs_config import log_decorator
 
 
 class SetStadburoJobsUseCase:
@@ -11,6 +12,7 @@ class SetStadburoJobsUseCase:
         self.scheduler_interface = scheduler_interface
         self.termins_service = termins_service
 
+    @log_decorator()
     async def execute(self):
         await self.scheduler_interface.add_job(
             Job(

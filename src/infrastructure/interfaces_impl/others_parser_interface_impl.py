@@ -4,6 +4,7 @@ import time
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
+from infrastructure.config.logs_config import log_decorator
 from infrastructure.config.selenium_config import get_selenium_driver
 from infrastructure.interfaces_impl.base_parser_interface_impl import BaseParserInterfaceImpl
 
@@ -17,10 +18,11 @@ class OthersParserInterface(BaseParserInterfaceImpl):
         # print('----------')
         self.url_start = "https://termine-reservieren.de/termine/marburg/select2?md=7"
 
-    def parse(self) -> dict:
+    @log_decorator()
+    async def parse(self) -> dict:
         result = {}
         try:
-            self.driver = get_selenium_driver()
+            self.driver = await get_selenium_driver()
             self.driver.get(self.url_start)
             self.ablehnen_cookies()
             result = self.get_termins()

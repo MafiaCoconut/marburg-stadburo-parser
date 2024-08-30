@@ -12,13 +12,13 @@ class CategoriesOfTerminsProviderImpl(CategoriesOfTerminsProvider):
                  eat_abholung_parser_interface: eATAbholungParserInterface,
                  registration_office_parser_interface: RegistrationOfficeParserInterface,
                  others_parser_interface: OthersParserInterface,
-                 auhenthaltstiteel_parser_interface: AufenthaltstitelParserInterface,
+                 aufenthaltstitel_parser_interface: AufenthaltstitelParserInterface,
                  ):
         self.adressanderung_parser_interface = adressanderung_parser_interface
         self.eat_abholung_parser_interface = eat_abholung_parser_interface
         self.registration_office_parser_interface = registration_office_parser_interface
         self.others_parser_interface = others_parser_interface
-        self.auhenthaltstiteel_parser_interface = auhenthaltstiteel_parser_interface
+        self.aufenthaltstitel_parser_interface = aufenthaltstitel_parser_interface
 
     def get_adressanderung_parser_interface(self):
         return self.adressanderung_parser_interface
@@ -32,5 +32,5 @@ class CategoriesOfTerminsProviderImpl(CategoriesOfTerminsProvider):
     def get_others_parser_interface(self):
         return self.others_parser_interface
 
-    def get_auhenthaltstiteel_parser_interface(self):
-        return self.auhenthaltstiteel_parser_interface
+    def get_aufenthaltstitel_parser_interface(self):
+        return self.aufenthaltstitel_parser_interface

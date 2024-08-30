@@ -1,6 +1,6 @@
 from infrastructure.interfaces_impl.categories_of_termins_provider_impl import CategoriesOfTerminsProviderImpl
 from infrastructure.config.interfaces_config import adressanderung_parser_interface, eat_abholung_parser_interface, \
-    registration_office_parser_interface, others_parser_interface, auhenthaltstiteel_parser_interface
+    registration_office_parser_interface, others_parser_interface, aufenthaltstitel_parser_interface
 from infrastructure.providers_impl.repositories_provider_impl import RepositoriesProviderImpl
 
 categories_of_termins_provider = CategoriesOfTerminsProviderImpl(
@@ -8,7 +8,7 @@ categories_of_termins_provider = CategoriesOfTerminsProviderImpl(
     eat_abholung_parser_interface=eat_abholung_parser_interface,
     registration_office_parser_interface=registration_office_parser_interface,
     others_parser_interface=others_parser_interface,
-    auhenthaltstiteel_parser_interface=auhenthaltstiteel_parser_interface
+    aufenthaltstitel_parser_interface=aufenthaltstitel_parser_interface
 )
 
 repositories_provider = RepositoriesProviderImpl()

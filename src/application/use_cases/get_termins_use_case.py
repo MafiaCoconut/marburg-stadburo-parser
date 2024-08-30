@@ -3,6 +3,7 @@ from application.repositories.category_of_termins_repository import CategoryOfTe
 from application.repositories.termins_repository import TerminsRepository
 from application.services.translation_service import TranslationService
 from domain.entities.termin import Termin
+from infrastructure.config.logs_config import log_decorator
 
 
 class GetTerminsUseCase:
@@ -15,11 +16,13 @@ class GetTerminsUseCase:
         self.category_of_termins_repository = category_of_termins_repository
         self.translation_service = translation_service
 
+    @log_decorator()
     async def get_all(self):
         termins_repository = self.repositories_provider.get_termins_repository()
         termins = await termins_repository.get_all()
         return termins
 
+    @log_decorator()
     async def execute(self, category_of_termins_id: int):
         """
         Функция берёт данные из базы данных о выбранной категории и возвращает их в виде словаря
@@ -40,36 +43,8 @@ class GetTerminsUseCase:
 
                 }
         }
-        # if termins:
-        #
-        #     text = await self.translation_service.translate(
-        #         message_id="list-of-all-termins",
-        #         locale=locale,
-        #         termins_name=await self.category_of_termins_repository.get_name(category_id=category_of_termins),
-        #         time=termins[0].created_at.strftime("%H:%M"),
-        #         day_last_activate=termins[0].created_at.strftime("%d.%m.%Y")
-        #     ) + "\n\n"
-        #
-        #     k = 0
-        #     for i, termin in enumerate(termins):
-        #         k += 1
-        #         if termin.time.day != termins[i-1].time.day:
-        #             if text[-1] != '\n':
-        #                 text += '\n'
-        #             text += f"\n<b>{termin.time.strftime('%d.%m.%Y')}</b>\n"
-        #             k = 1
-        #
-        #         text += f"{termin.time.strftime('%H:%M')} "
-        #         if k % 6 == 0:
-        #             text += '\n'
-        #
-        # else:
-        #     text = await self.translation_service.translate(
-        #         message_id="lack-of-terms",
-        #         locale=locale)
-        # result = {'text': text, 'error': None}
-        # return result
 
+    @log_decorator()
     async def get_termins_obj_list(self, category_of_termins: int):
         termins_repository = self.repositories_provider.get_termins_repository()
         termins = await termins_repository.get_by_type(category_id=category_of_termins)

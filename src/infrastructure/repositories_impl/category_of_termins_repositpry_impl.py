@@ -3,6 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from application.repositories.category_of_termins_repository import CategoryOfTerminsRepository
 from domain.entities.category_of_termin import CategoryOfTermins
+from infrastructure.config.logs_config import log_decorator
 from infrastructure.db.base import session_factory, async_session_factory
 from infrastructure.db.models.categories_of_termins_orm import CategoriesOfTerminsOrm
 
@@ -11,6 +12,7 @@ class CategoryOfTerminsRepositoryImpl(CategoryOfTerminsRepository):
     def __init__(self, session: AsyncSession):
         self.session = session
 
+    @log_decorator()
     async def get(self, category_id: int) -> CategoryOfTermins:
         async with self.session.begin():
             query = (
@@ -25,6 +27,7 @@ class CategoryOfTerminsRepositoryImpl(CategoryOfTerminsRepository):
                 created_at=category_of_termins.created_at
             )
 
+    @log_decorator()
     async def save(self, category_of_termins: CategoryOfTermins):
         async with self.session.begin():
             category_of_termins_orm = CategoriesOfTerminsOrm(
@@ -34,6 +37,7 @@ class CategoryOfTerminsRepositoryImpl(CategoryOfTerminsRepository):
             self.session.add(category_of_termins_orm)
             await self.session.commit()
 
+    @log_decorator()
     async def delete_all(self):
         async with self.session.begin():
             await self.session.execute(delete(CategoriesOfTerminsOrm))
