@@ -51,8 +51,6 @@ class ParseTerminsUseCase:
         termins_repository = self.repositories_provider.get_termins_repository()
         await termins_repository.delete_by_category(category_id=termin_category_id)
         parse_use_case = None
-        # print`(termin_category_id)
-        ic(self.adressanderung_parser_interface)
         match termin_category_id:
             case 1:
                 result = await self.adressanderung_parser_interface.parse()
@@ -65,7 +63,6 @@ class ParseTerminsUseCase:
             case 5:
                 result = await self.aufenthaltstitel_parser_interface.parse()
 
-        ic(result)
         if result.get('termins') is not None:
             await self.save_termins_use_case.save_many(termins=result['termins'])
         return result
