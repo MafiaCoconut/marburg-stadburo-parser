@@ -41,7 +41,7 @@ class ParseTerminsUseCase:
     def aufenthaltstitel_parser_interface(self):
         return self.categories_of_termins_provider.get_aufenthaltstitel_parser_interface()
 
-    @log_decorator()
+    @log_decorator(print_args=False)
     async def parse_termins_category(self, termin_category_id: int):
         """
         Функция запускает парсинг конкретной столовой
@@ -67,13 +67,13 @@ class ParseTerminsUseCase:
             await self.save_termins_use_case.save_many(termins=result['termins'])
         return result
 
-    @log_decorator()
+    @log_decorator(print_args=False, print_kwargs=False)
     async def parse_all(self):
         """
         Функция запускает парсинг всех столовых
         """
-        await self.parse_termins_category(1)
-        await self.parse_termins_category(2)
-        await self.parse_termins_category(3)
-        await self.parse_termins_category(4)
-        await self.parse_termins_category(5)
+        await self.parse_termins_category(termin_category_id=1)
+        await self.parse_termins_category(termin_category_id=2)
+        await self.parse_termins_category(termin_category_id=3)
+        await self.parse_termins_category(termin_category_id=4)
+        await self.parse_termins_category(termin_category_id=5)

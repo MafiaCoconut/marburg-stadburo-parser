@@ -16,13 +16,13 @@ class GetTerminsUseCase:
         self.category_of_termins_repository = category_of_termins_repository
         self.translation_service = translation_service
 
-    @log_decorator()
+    @log_decorator(print_args=False, print_kwargs=False)
     async def get_all(self):
         termins_repository = self.repositories_provider.get_termins_repository()
         termins = await termins_repository.get_all()
         return termins
 
-    @log_decorator()
+    @log_decorator(print_args=False)
     async def execute(self, category_of_termins_id: int):
         """
         Функция берёт данные из базы данных о выбранной категории и возвращает их в виде словаря
@@ -44,7 +44,7 @@ class GetTerminsUseCase:
                 }
         }
 
-    @log_decorator()
+    @log_decorator(print_args=False)
     async def get_termins_obj_list(self, category_of_termins: int):
         termins_repository = self.repositories_provider.get_termins_repository()
         termins = await termins_repository.get_by_type(category_id=category_of_termins)

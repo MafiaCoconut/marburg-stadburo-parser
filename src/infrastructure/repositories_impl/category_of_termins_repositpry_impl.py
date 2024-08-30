@@ -12,7 +12,7 @@ class CategoryOfTerminsRepositoryImpl(CategoryOfTerminsRepository):
     def __init__(self, session: AsyncSession):
         self.session = session
 
-    @log_decorator()
+    @log_decorator(print_args=False)
     async def get(self, category_id: int) -> CategoryOfTermins:
         async with self.session.begin():
             query = (
@@ -27,7 +27,7 @@ class CategoryOfTerminsRepositoryImpl(CategoryOfTerminsRepository):
                 created_at=category_of_termins.created_at
             )
 
-    @log_decorator()
+    @log_decorator(print_args=False, print_kwargs=False)
     async def save(self, category_of_termins: CategoryOfTermins):
         async with self.session.begin():
             category_of_termins_orm = CategoriesOfTerminsOrm(
@@ -37,7 +37,7 @@ class CategoryOfTerminsRepositoryImpl(CategoryOfTerminsRepository):
             self.session.add(category_of_termins_orm)
             await self.session.commit()
 
-    @log_decorator()
+    @log_decorator(print_args=False, print_kwargs=False)
     async def delete_all(self):
         async with self.session.begin():
             await self.session.execute(delete(CategoriesOfTerminsOrm))

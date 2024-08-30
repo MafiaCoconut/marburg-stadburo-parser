@@ -18,7 +18,7 @@ class RegistrationOfficeParserInterface(BaseParserInterfaceImpl):
         # print('----------')
         self.url_start = "https://termine-reservieren.de/termine/marburg/select2?md=2"
 
-    @log_decorator()
+    @log_decorator(print_args=False, print_kwargs=False)
     async def parse(self) -> dict:
         result = {}
         try:

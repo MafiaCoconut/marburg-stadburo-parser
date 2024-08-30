@@ -24,18 +24,18 @@ class SetAllSchedulersJobsUseCase:
         self.set_stadburo_jobs_use_case = set_stadburo_jobs_use_case
         self.set_s3_job_use_case = set_s3_job_use_case
 
-    @log_decorator()
+    @log_decorator(print_args=False, print_kwargs=False)
     async def execute(self):
         await self.set_stadburo_jobs()
         await self.set_s3_jobs()
 
         await self.scheduler_interface.start()
 
-    @log_decorator()
+    @log_decorator(print_args=False, print_kwargs=False)
     async def set_stadburo_jobs(self):
         await self.set_stadburo_jobs_use_case.execute()
 
-    @log_decorator()
+    @log_decorator(print_args=False, print_kwargs=False)
     async def set_s3_jobs(self):
         await self.set_s3_job_use_case.execute()
 

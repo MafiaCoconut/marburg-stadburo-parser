@@ -10,7 +10,7 @@ from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from infrastructure.config.logs_config import log_decorator
 
 
-@log_decorator()
+@log_decorator(print_args=False, print_kwargs=False)
 async def get_selenium_driver():
     FF_OPTIONS = [
         '--no-sandbox',

@@ -12,7 +12,7 @@ class SetStadburoJobsUseCase:
         self.scheduler_interface = scheduler_interface
         self.termins_service = termins_service
 
-    @log_decorator()
+    @log_decorator(print_args=False, print_kwargs=False)
     async def execute(self):
         await self.scheduler_interface.add_job(
             Job(

@@ -13,7 +13,7 @@ class TerminsRepositoryImpl(TerminsRepository):
     def __init__(self, session: AsyncSession):
         self.session = session
 
-    @log_decorator()
+    @log_decorator(print_args=False, print_kwargs=False)
     async def get_all(self) -> list[Termin]:
         async with self.session.begin():
             query = select(TerminsOrm)
@@ -24,7 +24,7 @@ class TerminsRepositoryImpl(TerminsRepository):
                 time=termin.time
             )for termin in res.scalars().all()]
 
-    @log_decorator()
+    @log_decorator(print_args=False)
     async def get_by_type(self, category_id: int) -> list[Termin]:
         async with self.session.begin():
             query = (
@@ -39,7 +39,7 @@ class TerminsRepositoryImpl(TerminsRepository):
                 created_at=termin.created_at
             ) for termin in res.scalars().all()]
 
-    @log_decorator(print_kwargs=False)
+    @log_decorator(print_args=False, print_kwargs=False)
     async def save(self, termin: Termin) -> None:
         async with self.session.begin():
             termin_orm = TerminsOrm(
@@ -49,7 +49,7 @@ class TerminsRepositoryImpl(TerminsRepository):
             self.session.add(termin_orm)
             await self.session.commit()
 
-    @log_decorator(print_kwargs=False)
+    @log_decorator(print_args=False, print_kwargs=False)
     async def save_many(self, termins: list[Termin]) -> None:
         async with self.session.begin():
             for termin in termins:
@@ -60,14 +60,14 @@ class TerminsRepositoryImpl(TerminsRepository):
                 self.session.add(termin_orm)
             await self.session.commit()
 
-    @log_decorator()
+    @log_decorator(print_args=False, print_kwargs=False)
     async def delete_all(self) -> None:
         async with self.session.begin():
             query = delete(TerminsOrm)
             await self.session.execute(query)
             await self.session.commit()
 
-    @log_decorator()
+    @log_decorator(print_args=False, print_kwargs=False)
     async def delete_by_category(self, category_id: int) -> None:
         async with self.session.begin():
             query = (
@@ -77,7 +77,7 @@ class TerminsRepositoryImpl(TerminsRepository):
             await self.session.execute(query)
             await self.session.commit()
 
-    @log_decorator()
+    @log_decorator(print_args=False)
     async def delete(self, termin_id: int) -> None:
         async with self.session.begin():
             query = (
