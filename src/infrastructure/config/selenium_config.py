@@ -32,6 +32,7 @@ async def get_selenium_driver():
 
     options = FirefoxOptions()
     if os.getenv("DEVICE") == "Ubuntu":
+        options.set_preference("profile", "/home/mafiacoconut/.mozilla/firefox/9rezo46x.Selenium_user")
         options.binary_location = "/usr/bin/firefox"
         geckodriver_path = "/usr/local/bin/geckodriver"
 

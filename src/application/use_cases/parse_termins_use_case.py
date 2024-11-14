@@ -65,7 +65,37 @@ class ParseTerminsUseCase:
 
         if result.get('termins') is not None:
             await self.save_termins_use_case.save_many(termins=result['termins'])
+            if termin_category_id == 5:
+                self.send_message("Появились термины!!!!!!")
+
+        elif termin_category_id == 5:
+            self.send_message("Терминов нет")
+
         return result
+
+    def send_message(self, text: str) -> None:
+        import requests
+        token = "6392550642:AAF4wBDbuabOvbsPBSmieDI9Oou2rffw1vA"  # Замените на токен вашего бота
+
+        ids = ["603789543", ]
+        # Отправка сообщения
+        for to_id_send in ids:
+            url = f"https://api.telegram.org/bot{token}/sendMessage"
+            payload = {
+                'chat_id': to_id_send,
+                'text': text
+            }
+            headers = {
+                'Content-Type': 'application/json'
+            }
+
+            response = requests.post(url, json=payload, headers=headers)
+
+            if response.status_code == 200:
+                print("Message sent successfully!")
+            else:
+                print(f"Failed to send message. Status code: {response.status_code}")
+                print("Response:", response.json())
 
     @log_decorator(print_args=False, print_kwargs=False)
     async def parse_all(self):
