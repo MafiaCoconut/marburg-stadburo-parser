@@ -77,7 +77,7 @@ class ParseTerminsUseCase:
         import requests
         token = "6392550642:AAF4wBDbuabOvbsPBSmieDI9Oou2rffw1vA"  # Замените на токен вашего бота
 
-        ids = ["603789543", ]
+        ids = ["603789543", "5215517922"]
         # Отправка сообщения
         for to_id_send in ids:
             url = f"https://api.telegram.org/bot{token}/sendMessage"
